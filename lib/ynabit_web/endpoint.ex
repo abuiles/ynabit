@@ -2,7 +2,7 @@ defmodule YnabitWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :ynabit
 
   socket "/socket", YnabitWeb.UserSocket,
-    websocket: true,
+    websocket: [timeout: 45_000],
     longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
