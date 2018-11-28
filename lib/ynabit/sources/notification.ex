@@ -2,7 +2,6 @@ defmodule Ynabit.Sources.Notification do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "notifications" do
     field :payload, :map
     field :processed, :boolean, default: false

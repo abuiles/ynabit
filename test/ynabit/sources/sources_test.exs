@@ -42,7 +42,10 @@ defmodule Ynabit.SourcesTest do
 
     test "update_notification/2 with valid data updates the notification" do
       notification = notification_fixture()
-      assert {:ok, %Notification{} = notification} = Sources.update_notification(notification, @update_attrs)
+
+      assert {:ok, %Notification{} = notification} =
+               Sources.update_notification(notification, @update_attrs)
+
       assert notification.payload == %{}
       assert notification.processed == false
       assert notification.raw == "some updated raw"
@@ -50,7 +53,10 @@ defmodule Ynabit.SourcesTest do
 
     test "update_notification/2 with invalid data returns error changeset" do
       notification = notification_fixture()
-      assert {:error, %Ecto.Changeset{}} = Sources.update_notification(notification, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Sources.update_notification(notification, @invalid_attrs)
+
       assert notification == Sources.get_notification!(notification.id)
     end
 

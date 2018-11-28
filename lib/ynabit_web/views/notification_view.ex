@@ -11,9 +11,11 @@ defmodule YnabitWeb.NotificationView do
   end
 
   def render("notification.json", %{notification: notification}) do
-    %{id: notification.id,
+    %{
+      id: notification.id,
       raw: notification.raw,
       payload: notification.payload,
-      processed: notification.processed}
+      processed: notification.processed
+    }
   end
 end

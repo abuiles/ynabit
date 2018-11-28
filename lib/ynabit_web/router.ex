@@ -22,6 +22,6 @@ defmodule YnabitWeb.Router do
   scope "/api/v1", YnabitWeb do
     pipe_through :api
 
-    resources "/notifications", NotificationController, except: [:new, :edit]
+    post "/notifications/parse", NotificationController, :parse
   end
 end
