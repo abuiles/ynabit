@@ -19,8 +19,9 @@ defmodule YnabitWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", YnabitWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", YnabitWeb do
+    pipe_through :api
+
+    resources "/notifications", NotificationController, except: [:new, :edit]
+  end
 end
