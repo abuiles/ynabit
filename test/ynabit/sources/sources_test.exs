@@ -6,8 +6,12 @@ defmodule Ynabit.SourcesTest do
   describe "notifications" do
     alias Ynabit.Sources.Notification
 
-    @valid_attrs %{payload: %{}, processed: true, raw: %{}}
-    @update_attrs %{payload: %{}, processed: false, raw: %{}}
+    @email %{
+      "text" =>
+        "--\Tom Doe\n\n\n---------- Forwarded message ---------\nFrom: <BANCO_DAVIVIENDA@davivienda.com>\nDate: Tue, Nov 27, 2018 at 7:33 PM\nSubject: DAVIVIENDA\nTo: <tomdoe@gmail.com>\n\n\nApreciado(a) Tom Doe:\n\nLe  informamos que se ha registrado el siguiente movimiento de su Tarjeta\nCrédito terminada en ****2020:\n\nFecha: 2018/11/28\nHora: 5:32:56\nValor Transacción: 7,409\nClase de Movimiento: Compra\nRespuesta: Aprobado(a)\nLugar de Transacción: UBER   *TRIP-WL2SO\n\nBANCO DAVIVIENDA\nAVISO LEGAL : Este mensaje es confidencial, puede contener\ninformación privilegiada y no puede ser usado ni divulgado por\npersonas distintas de su destinatario. Si obtiene esta transmisión\npor error, por favor destruya su contenido y avise a su remitente.\nesta prohibida su retención, grabación, utilización, aprovechamiento\no divulgación con cualquier propósito. Este mensaje ha sido sometido\na programas antivirus. No obstante, el BANCO DAVIVIENDA S.A. y sus\nFILIALES   no\nasumen ninguna responsabilidad por eventuales daños generados por\nel recibo y el uso de este material, siendo responsabilidad del destinatario\nverificar con sus propios medios la existencia de virus u otros\ndefectos. El presente correo electrónico solo refleja la opinión de\nsu Remitente y no representa necesariamente la opinión oficial del\nBANCO DAVIVIENDA S.A. y sus FILIALES  o de sus Directivos\n"
+    }
+    @valid_attrs %{payload: %{}, processed: true, raw: @email}
+    @update_attrs %{payload: %{}, processed: false, raw: @email}
     @invalid_attrs %{payload: nil, processed: nil, raw: nil}
 
     def notification_fixture(attrs \\ %{}) do
@@ -29,15 +33,20 @@ defmodule Ynabit.SourcesTest do
       assert Sources.get_notification!(notification.id) == notification
     end
 
-    test "create_notification/1 with valid data creates a notification" do
-      assert {:ok, %Notification{} = notification} = Sources.create_notification(@valid_attrs)
-      assert notification.payload == %{}
-      assert notification.processed == true
-      assert notification.raw == %{}
-    end
+    test "parse_notification/1 with valid data creates a notification" do
+      assert {:ok, %Notification{} = notification} = Sources.parse_notification(@email)
 
-    test "create_notification/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Sources.create_notification(@invalid_attrs)
+      assert notification.payload == %{
+               amount: "7,409",
+               approved: true,
+               cleared: "cleared",
+               date: "2018/11/28",
+               import_id: "F6E2DE772440935C7AA43863ABB10C58",
+               payee_name: "UBER   *TRIP-WL2SO"
+             }
+
+      assert notification.processed == true
+      assert notification.raw == @email
     end
 
     test "update_notification/2 with valid data updates the notification" do
@@ -48,7 +57,7 @@ defmodule Ynabit.SourcesTest do
 
       assert notification.payload == %{}
       assert notification.processed == false
-      assert notification.raw == %{}
+      assert notification.raw == @email
     end
 
     test "update_notification/2 with invalid data returns error changeset" do
@@ -64,11 +73,6 @@ defmodule Ynabit.SourcesTest do
       notification = notification_fixture()
       assert {:ok, %Notification{}} = Sources.delete_notification(notification)
       assert_raise Ecto.NoResultsError, fn -> Sources.get_notification!(notification.id) end
-    end
-
-    test "change_notification/1 returns a notification changeset" do
-      notification = notification_fixture()
-      assert %Ecto.Changeset{} = Sources.change_notification(notification)
     end
   end
 end

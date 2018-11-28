@@ -37,7 +37,7 @@ defmodule YnabitWeb.NotificationControllerTest do
     test "creates a new notification", %{conn: conn} do
       post(conn, Routes.notification_path(conn, :parse), @notification)
 
-      assert length(Sources.list_notifications) == 1
+      assert length(Sources.list_notifications()) == 1
     end
   end
 end

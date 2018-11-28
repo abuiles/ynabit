@@ -56,6 +56,17 @@ defmodule Ynabit.Sources do
   end
 
   @doc """
+  Takes a notification email and creates a notification.
+  """
+  def parse_notification(message \\ %{}) do
+    payload = BanknotToYnab.parse(message["text"])
+
+    %Notification{}
+    |> Notification.changeset(%{raw: message, payload: payload, processed: true})
+    |> Repo.insert()
+  end
+
+  @doc """
   Updates a notification.
 
   ## Examples
@@ -87,18 +98,5 @@ defmodule Ynabit.Sources do
   """
   def delete_notification(%Notification{} = notification) do
     Repo.delete(notification)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking notification changes.
-
-  ## Examples
-
-      iex> change_notification(notification)
-      %Ecto.Changeset{source: %Notification{}}
-
-  """
-  def change_notification(%Notification{} = notification) do
-    Notification.changeset(notification, %{})
   end
 end
