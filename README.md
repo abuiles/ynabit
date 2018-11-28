@@ -1,4 +1,5 @@
 # Ynabit
+[![CircleCI](https://circleci.com/gh/abuiles/ynabit.svg?style=svg)](https://circleci.com/gh/abuiles/ynabit)
 
 To start your Phoenix server:
 
