@@ -5,7 +5,7 @@ defmodule Ynabit.Sources.Notification do
   schema "notifications" do
     field :payload, :map
     field :processed, :boolean, default: false
-    field :raw, :string
+    field :raw, :map
 
     timestamps()
   end

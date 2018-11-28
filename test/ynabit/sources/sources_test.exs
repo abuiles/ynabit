@@ -6,8 +6,8 @@ defmodule Ynabit.SourcesTest do
   describe "notifications" do
     alias Ynabit.Sources.Notification
 
-    @valid_attrs %{payload: %{}, processed: true, raw: "some raw"}
-    @update_attrs %{payload: %{}, processed: false, raw: "some updated raw"}
+    @valid_attrs %{payload: %{}, processed: true, raw: %{}}
+    @update_attrs %{payload: %{}, processed: false, raw: %{}}
     @invalid_attrs %{payload: nil, processed: nil, raw: nil}
 
     def notification_fixture(attrs \\ %{}) do
@@ -33,7 +33,7 @@ defmodule Ynabit.SourcesTest do
       assert {:ok, %Notification{} = notification} = Sources.create_notification(@valid_attrs)
       assert notification.payload == %{}
       assert notification.processed == true
-      assert notification.raw == "some raw"
+      assert notification.raw == %{}
     end
 
     test "create_notification/1 with invalid data returns error changeset" do
@@ -48,7 +48,7 @@ defmodule Ynabit.SourcesTest do
 
       assert notification.payload == %{}
       assert notification.processed == false
-      assert notification.raw == "some updated raw"
+      assert notification.raw == %{}
     end
 
     test "update_notification/2 with invalid data returns error changeset" do
