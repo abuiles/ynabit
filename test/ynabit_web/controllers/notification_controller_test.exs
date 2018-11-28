@@ -1,7 +1,7 @@
 defmodule YnabitWeb.NotificationControllerTest do
   use YnabitWeb.ConnCase
 
-  # alias Ynabit.Sources
+  alias Ynabit.Sources
   # alias Ynabit.Sources.Notification
 
   @notification %{
@@ -32,6 +32,12 @@ defmodule YnabitWeb.NotificationControllerTest do
       conn = post(conn, Routes.notification_path(conn, :parse), @notification)
 
       assert response(conn, 204)
+    end
+
+    test "creates a new notification", %{conn: conn} do
+      post(conn, Routes.notification_path(conn, :parse), @notification)
+
+      assert length(Sources.list_notifications) == 1
     end
   end
 end
