@@ -26,6 +26,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :bugsnag, api_key: System.get_env("BUGSNAG_API_KEY")
+config :ynab_api_token, api_key: System.get_env("YNAB_API_TOKEN")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
