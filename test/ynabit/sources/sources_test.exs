@@ -37,10 +37,10 @@ defmodule Ynabit.SourcesTest do
       assert {:ok, %Notification{} = notification} = Sources.parse_notification(@email)
 
       assert notification.payload == %{
-               amount: "7,409",
+               amount: -7409,
                approved: true,
                cleared: "cleared",
-               date: "2018/11/28",
+               date: "2018-11-28",
                import_id: "F6E2DE772440935C7AA43863ABB10C58",
                payee_name: "UBER   *TRIP-WL2SO"
              }
