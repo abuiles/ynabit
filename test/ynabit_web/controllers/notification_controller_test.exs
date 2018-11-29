@@ -24,7 +24,7 @@ defmodule YnabitWeb.NotificationControllerTest do
   }
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    {:ok, conn: conn |> put_req_header("accept", "application/json") |> put_req_header("content-type", "multipart/form-data")}
   end
 
   describe "parse notification" do

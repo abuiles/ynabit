@@ -13,14 +13,19 @@ defmodule YnabitWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :inbound_notification do
+    plug Plug.Parsers, parsers: [:multipart]
+  end
+
   scope "/", YnabitWeb do
     pipe_through :browser
 
     get "/", PageController, :index
   end
 
+
   scope "/api/v1", YnabitWeb do
-    pipe_through :api
+    pipe_through :inbound_notification
 
     post "/notifications/parse", NotificationController, :parse
   end
