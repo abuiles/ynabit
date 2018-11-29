@@ -99,4 +99,21 @@ defmodule Ynabit.Sources do
   def delete_notification(%Notification{} = notification) do
     Repo.delete(notification)
   end
+
+  @doc false
+  def post_notification_to_ynab(%Notification{} = notification) do
+    budget_id = Application.get_env(:ynabit, :ynab_budget_id)
+    account_id = Application.get_env(:ynabit, :ynab_account_id)
+    url = "https://api.youneedabudget.com/v1/budgets/#{budget_id}/transactions"
+
+    transaction = notification.payload |> Map.merge(%{account_id: account_id})
+    payload = %{transaction: transaction} |> Jason.encode!()
+
+    HTTPoison.start()
+
+    HTTPoison.post(url, payload, [
+      {"Content-Type", "application/json"},
+      {"Authorization", "Bearer #{Application.get_env(:ynabit, :ynab_api_token)}"}
+    ])
+  end
 end
