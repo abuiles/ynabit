@@ -7,7 +7,8 @@ defmodule YnabitWeb.NotificationController do
   action_fallback YnabitWeb.FallbackController
 
   def parse(conn, params) do
-    with {:ok, %Notification{}} <- Sources.parse_notification(params) do
+    with {:ok, notification = %Notification{}} <- Sources.parse_notification(params) do
+      Sources.post_notification_to_ynab(notification)
       send_resp(conn, :no_content, "")
     end
   end
