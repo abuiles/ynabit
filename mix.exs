@@ -35,6 +35,7 @@ defmodule Ynabit.MixProject do
     [
       {:banknot_to_ynab, "~> 0.2.0"},
       {:bugsnag, "~> 1.7.0"},
+      {:httpoison, "~> 1.4"},
       {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},
