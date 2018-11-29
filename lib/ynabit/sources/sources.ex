@@ -100,7 +100,9 @@ defmodule Ynabit.Sources do
     Repo.delete(notification)
   end
 
-  @doc false
+  @doc """
+  Post a new transaction to YNAB
+  """
   def post_notification_to_ynab(%Notification{} = notification) do
     budget_id = Application.get_env(:ynabit, :ynab_budget_id)
     account_id = Application.get_env(:ynabit, :ynab_account_id)
