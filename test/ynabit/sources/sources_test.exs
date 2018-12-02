@@ -74,5 +74,32 @@ defmodule Ynabit.SourcesTest do
       assert {:ok, %Notification{}} = Sources.delete_notification(notification)
       assert_raise Ecto.NoResultsError, fn -> Sources.get_notification!(notification.id) end
     end
+
+    test "normalize_payload/1 replaces payee_name and adds memo field" do
+      payload = %{
+        amount: -7409,
+        approved: true,
+        cleared: "cleared",
+        date: "2018-11-28",
+        import_id: "F6E2DE772440935C7AA43863ABB10C58",
+        payee_name: "UBER   *TRIP-WL2SO"
+      }
+
+      assert Sources.normalize_payload(payload) == %{
+               amount: -7_409_000,
+               approved: true,
+               cleared: "cleared",
+               date: "2018-11-28",
+               import_id: "F6E2DE772440935C7AA43863ABB10C58",
+               payee_name: "UBER",
+               memo: "UBER   *TRIP-WL2SO"
+             }
+    end
+
+    test "find_payee/1 return payee name if there is a match" do
+      assert Sources.find_payee("UBER   *TRIP-WL2SO") == {:ok, "UBER"}
+      assert Sources.find_payee("CREPES Y WAFFLES OVIEDO") == {:ok, "CREPES Y WAFFLES"}
+      assert Sources.find_payee("PIZZERIA OLIVIA SANTAFE") == {:ok, "PIZZERIA OLIVIA"}
+    end
   end
 end

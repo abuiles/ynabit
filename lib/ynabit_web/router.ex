@@ -23,7 +23,6 @@ defmodule YnabitWeb.Router do
     get "/", PageController, :index
   end
 
-
   scope "/api/v1", YnabitWeb do
     pipe_through :inbound_notification
 

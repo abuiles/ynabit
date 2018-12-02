@@ -118,4 +118,51 @@ defmodule Ynabit.Sources do
       {"Authorization", "Bearer #{Application.get_env(:ynabit, :ynab_api_token)}"}
     ])
   end
+
+  @doc """
+  Some vendors include metadata in their description, this normalized
+  the name and adds the original text in the memo field.
+
+  ## Examples
+
+      iex> normalize_payee(%{
+               amount: -7409,
+               approved: true,
+               cleared: "cleared",
+               date: "2018-11-28",
+               import_id: "F6E2DE772440935C7AA43863ABB10C58",
+               payee_name: "UBER   *TRIP-WL2SO"
+             })
+      %{
+        amount: -7409,
+        approved: true,
+        cleared: "cleared",
+        date: "2018-11-28",
+        import_id: "F6E2DE772440935C7AA43863ABB10C58",
+        payee_name: "UBER",
+        memo: "UBER   *TRIP-WL2SO"
+      }
+  """
+  def normalize_payload(payload) do
+    with {:ok, payee} <- find_payee(payload[:payee_name]) do
+      Map.merge(payload, %{payee_name: payee, memo: payload[:payee_name]})
+    else
+      _ -> payload
+    end
+    |> Map.merge(%{amount: payload[:amount] * 1000})
+  end
+
+  def find_payee(name) do
+    regex = [
+      {~r/UBER/, "UBER"},
+      {~r/CREPES Y WAFFLES/, "CREPES Y WAFFLES"},
+      {~r/PIZZERIA OLIVIA/, "PIZZERIA OLIVIA"}
+    ]
+
+    with {_, payee} <- Enum.find(regex, fn {r, _} -> Regex.match?(r, name) end) do
+      {:ok, payee}
+    else
+      _ -> name
+    end
+  end
 end
