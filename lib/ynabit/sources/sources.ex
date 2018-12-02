@@ -108,7 +108,7 @@ defmodule Ynabit.Sources do
     account_id = Application.get_env(:ynabit, :ynab_account_id)
     url = "https://api.youneedabudget.com/v1/budgets/#{budget_id}/transactions"
 
-    transaction = notification.payload |> Map.merge(%{account_id: account_id})
+    transaction = notification.payload |> normalize_payload |> Map.merge(%{account_id: account_id})
     payload = %{transaction: transaction} |> Jason.encode!()
 
     HTTPoison.start()
@@ -120,8 +120,7 @@ defmodule Ynabit.Sources do
   end
 
   @doc """
-  Some vendors include metadata in their description, this normalized
-  the name and adds the original text in the memo field.
+  Normalize the payee_name field to exclude metadata and set amount in milliunits
 
   ## Examples
 
@@ -134,7 +133,7 @@ defmodule Ynabit.Sources do
                payee_name: "UBER   *TRIP-WL2SO"
              })
       %{
-        amount: -7409,
+        amount: -7409000,
         approved: true,
         cleared: "cleared",
         date: "2018-11-28",
