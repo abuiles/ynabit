@@ -86,7 +86,7 @@ defmodule Ynabit.SourcesTest do
       }
 
       assert Sources.normalize_payload(payload) == %{
-               amount: -7409,
+               amount: -7_409_000,
                approved: true,
                cleared: "cleared",
                date: "2018-11-28",
