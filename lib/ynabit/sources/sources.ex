@@ -144,6 +144,14 @@ defmodule Ynabit.Sources do
       }
   """
   def normalize_payload(payload) do
-    payload
+    with {:ok, payee} <- find_payee(payload[:payee_name]) do
+      Map.merge(payload, %{payee_name: payee, memo: payload[:payee_name]})
+    else
+      _ -> payload
+    end
+  end
+
+  def find_payee(name) do
+    {:ok, "UBER"}
   end
 end

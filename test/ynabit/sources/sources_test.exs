@@ -75,7 +75,7 @@ defmodule Ynabit.SourcesTest do
       assert_raise Ecto.NoResultsError, fn -> Sources.get_notification!(notification.id) end
     end
 
-    test "normalize_payload/1 with a match add memo field and fixes payee " do
+    test "normalize_payload/1 replaces payee_name and adds memo field" do
       payload = %{
         amount: -7409,
         approved: true,
@@ -86,14 +86,14 @@ defmodule Ynabit.SourcesTest do
       }
 
       assert Sources.normalize_payload(payload) == %{
-        amount: -7409,
-        approved: true,
-        cleared: "cleared",
-        date: "2018-11-28",
-        import_id: "F6E2DE772440935C7AA43863ABB10C58",
-        payee_name: "UBER",
-        memo: "UBER   *TRIP-WL2SO"
-      }
+               amount: -7409,
+               approved: true,
+               cleared: "cleared",
+               date: "2018-11-28",
+               import_id: "F6E2DE772440935C7AA43863ABB10C58",
+               payee_name: "UBER",
+               memo: "UBER   *TRIP-WL2SO"
+             }
     end
   end
 end
