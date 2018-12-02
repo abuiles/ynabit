@@ -118,4 +118,32 @@ defmodule Ynabit.Sources do
       {"Authorization", "Bearer #{Application.get_env(:ynabit, :ynab_api_token)}"}
     ])
   end
+
+  @doc """
+  Some vendors include metadata in their description, this normalized
+  the name and adds the original text in the memo field.
+
+  ## Examples
+
+      iex> normalize_payee(%{
+               amount: -7409,
+               approved: true,
+               cleared: "cleared",
+               date: "2018-11-28",
+               import_id: "F6E2DE772440935C7AA43863ABB10C58",
+               payee_name: "UBER   *TRIP-WL2SO"
+             })
+      %{
+        amount: -7409,
+        approved: true,
+        cleared: "cleared",
+        date: "2018-11-28",
+        import_id: "F6E2DE772440935C7AA43863ABB10C58",
+        payee_name: "UBER",
+        memo: "UBER   *TRIP-WL2SO"
+      }
+  """
+  def normalize_payload(payload) do
+    payload
+  end
 end
