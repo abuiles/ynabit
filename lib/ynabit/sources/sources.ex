@@ -152,6 +152,16 @@ defmodule Ynabit.Sources do
   end
 
   def find_payee(name) do
-    {:ok, "UBER"}
+    regex = [
+      {~r/UBER/, "UBER"},
+      {~r/CREPES Y WAFFLES/, "CREPES Y WAFFLES"},
+      {~r/PIZZERIA OLIVIA/, "PIZZERIA OLIVIA"}
+    ]
+
+    with {_, payee} <- Enum.find(regex, fn {r, _} -> Regex.match?(r, name) end) do
+      {:ok, payee}
+    else
+      _ -> name
+    end
   end
 end

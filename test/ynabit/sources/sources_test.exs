@@ -95,5 +95,11 @@ defmodule Ynabit.SourcesTest do
                memo: "UBER   *TRIP-WL2SO"
              }
     end
+
+    test "find_payee/1 return payee name if there is a match" do
+      assert Sources.find_payee("UBER   *TRIP-WL2SO") == {:ok, "UBER"}
+      assert Sources.find_payee("CREPES Y WAFFLES OVIEDO") == {:ok, "CREPES Y WAFFLES"}
+      assert Sources.find_payee("PIZZERIA OLIVIA SANTAFE") == {:ok, "PIZZERIA OLIVIA"}
+    end
   end
 end
