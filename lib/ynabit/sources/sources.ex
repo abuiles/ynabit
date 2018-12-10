@@ -155,7 +155,8 @@ defmodule Ynabit.Sources do
     regex = [
       {~r/UBER/, "UBER"},
       {~r/CREPES Y WAFFLES/, "CREPES Y WAFFLES"},
-      {~r/PIZZERIA OLIVIA/, "PIZZERIA OLIVIA"}
+      {~r/PIZZERIA OLIVIA/, "PIZZERIA OLIVIA"},
+      {~r/NETFLIX/, "NETFLIX"}
     ]
 
     with {_, payee} <- Enum.find(regex, fn {r, _} -> Regex.match?(r, name) end) do
