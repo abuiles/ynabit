@@ -101,6 +101,10 @@ defmodule Ynabit.SourcesTest do
       assert Sources.find_payee("CREPES Y WAFFLES OVIEDO") == {:ok, "CREPES Y WAFFLES"}
       assert Sources.find_payee("PIZZERIA OLIVIA SANTAFE") == {:ok, "PIZZERIA OLIVIA"}
       assert Sources.find_payee("PAYU NETFLIX") == {:ok, "NETFLIX"}
+      assert Sources.find_payee("CARULLA PAULO") == {:ok, "CARULLA"}
+      assert Sources.find_payee("CARULLA PAULO") == {:ok, "CARULLA"}
+      assert Sources.find_payee("FIRE HOUSE MILLA DE OR ") == {:ok, "FIRE HOUSE"}
+      assert Sources.find_payee("Spotify P0adfadf") == {:ok, "Spotify"}
     end
   end
 end
