@@ -159,7 +159,8 @@ defmodule Ynabit.Sources do
       {~r/NETFLIX/, "NETFLIX"},
       {~r/CARULLA/, "CARULLA"},
       {~r/FIRE HOUSE/, "FIRE HOUSE"},
-      {~r/Spotify/, "Spotify"}
+      {~r/Spotify/, "Spotify"},
+      {~r/HEROKU/, "Heroku"}
     ]
 
     with {_, payee} <- Enum.find(regex, fn {r, _} -> Regex.match?(r, name) end) do
