@@ -1,35 +1,107 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed and maintainability.</p>
-</section>
+<header class="ph4">
+  <div class="flex justify-between">
+    <div>
+      YNAB IT
+    </div>
+    <nav>
+      <a class="mr4" title="How it works" href="#how-it-works" >
+        How it works
+      </a>
+      <a class="mr4" title="Pricing" href="#pricing" >
+        Pricing
+      </a>
+      <a class="mr4" title="Sign-up" href="#" >
+        Sign-up
+      </a>
+    </nav>
+  </div>
+</header>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-    </ul>
-  </article>
-</section>
+<div class="mt4">
+  <div class="pa4 center mw8 flex items-center flex-column flex-row-ns">
+    <div>
+      <h1>
+        Automatically import bank notifications to YNAB
+      </h1>
+      <p>
+        Stop adding transactions manually, if your bank sends you any kind of email notification, we can help!
+      </p>
+    </div>
+    <div class="center">
+      <a href="#">
+        Sign-up
+      </a>
+      <!-- <img width="50%" src="<%= Routes.static_path(@conn, "/images/undraw_cloud_sync_2aph.svg") %>" alt="Undraw Cloud Sync"/> -->
+    </div>
+  </div>
+</div>
+
+<article id="how-it-works">
+  <div class="pa4 center mw8">
+    <h1>How it works</h1>
+    <section>
+      <div>
+        <h3>1. Turn on email notifications in your bank.</h3>
+        <div class="">
+          <div class="">
+            <img width="25%" src="<%= Routes.static_path(@conn, "/images/undraw_mail_2_tqip.svg") %>" alt="Undraw Cloud Sync"/>
+          </div>
+          <p>
+            To take advantage of YNAB It your bank needs to offer email notifications. Start by turning them on.
+          </p>
+        </div>
+    </section>
+    <section>
+      <h3>2. Connect YNAB.</h3>
+      <div>
+        <img width="25%" src="<%= Routes.static_path(@conn, "/images/undraw_authentication_fsn5.svg") %>" alt="Undraw Cloud Sync"/>
+      </div>
+      <p>
+        After you sign-up for an account here, you need to connect
+        your YNAB account with us so we can create new transactions
+        on your behalf.
+      </p>
+    </section>
+    <section>
+      <h3>3. Configure YNAB It.</h3>
+      <div>
+        <img width="25%" src="<%= Routes.static_path(@conn, "/images/undraw_following_q0cr.svg") %>" alt="Undraw Cloud Sync"/>
+      </div>
+      <p>
+        We give you a special email address where you need to forward all the emails from your bank account. Moderm email services give you the ability to add this easily.
+      </p>
+    </section>
+    <section>
+      <h3 >4. Relax and take control of your budget.</h3>
+      <img width="25%" src="<%= Routes.static_path(@conn, "/images/undraw_chilling_8tii.svg") %>" alt="Undraw Cloud Sync"/>
+    </section>
+  </div>
+</article>
+<article id="pricing">
+  <div class="pa4 center mw8">
+    <h1>Pricing</h1>
+    <section>
+      <div>
+        <h3>$24/yearly (or $2.5/month)</h3>
+      </div>
+    </section>
+  </div>
+</article>
+
+<div class="">
+  <div class="pa4 center mw8 flex items-center">
+    <div class="center">
+      <a href="#">
+        Sign-up
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer class="pv4 ph3">
+  <small class="db tc">© 2019 <b class="ttu">YNABIT by Motmot Systems, LLC</b>., All Rights Reserved</small>
+  <div class="tc mt3">
+    <a href="/terms/"    title="Terms" class="f6 dib ph2 link mid-gray dim">Terms of Use</a>
+    <a href="/privacy/"  title="Privacy" class="f6 dib ph2 link mid-gray dim">Privacy</a>
+  </div>
+</footer>
