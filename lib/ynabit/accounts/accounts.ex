@@ -22,6 +22,22 @@ defmodule Ynabit.Accounts do
   end
 
   @doc """
+  Gets a single account by slug name.
+
+  Returns nil if the Account does not exist.
+
+  ## Examples
+
+      iex> get_account_by_slug(abuiles)
+      %Account{}
+
+      iex> get_account_by_slug(tomdoe)
+      nil
+
+  """
+  def get_account_by_slug(slug), do: Repo.get_by(Account, slug: slug)
+
+  @doc """
   Gets a single account.
 
   Raises `Ecto.NoResultsError` if the Account does not exist.

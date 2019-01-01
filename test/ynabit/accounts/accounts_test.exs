@@ -6,8 +6,18 @@ defmodule Ynabit.AccountsTest do
   describe "accounts" do
     alias Ynabit.Accounts.Account
 
-    @valid_attrs %{account_id: "some account_id", api_token: "some api_token", budget_id: "some budget_id", slug: "some slug"}
-    @update_attrs %{account_id: "some updated account_id", api_token: "some updated api_token", budget_id: "some updated budget_id", slug: "some updated slug"}
+    @valid_attrs %{
+      account_id: "some account_id",
+      api_token: "some api_token",
+      budget_id: "some budget_id",
+      slug: "some slug"
+    }
+    @update_attrs %{
+      account_id: "some updated account_id",
+      api_token: "some updated api_token",
+      budget_id: "some updated budget_id",
+      slug: "some updated slug"
+    }
     @invalid_attrs %{account_id: nil, api_token: nil, budget_id: nil, slug: nil}
 
     def account_fixture(attrs \\ %{}) do
@@ -22,6 +32,15 @@ defmodule Ynabit.AccountsTest do
     test "list_accounts/0 returns all accounts" do
       account = account_fixture()
       assert Accounts.list_accounts() == [account]
+    end
+
+    test "get_account_by_slug/1 returns the account with given slug" do
+      account = account_fixture()
+      assert Accounts.get_account_by_slug(account.slug) == account
+    end
+
+    test "get_account_by_slug/1 returns nil when the account is not found" do
+      assert Accounts.get_account_by_slug("foobar") == nil
     end
 
     test "get_account!/1 returns the account with given id" do
