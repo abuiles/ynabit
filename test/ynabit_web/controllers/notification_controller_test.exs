@@ -1,7 +1,9 @@
 defmodule YnabitWeb.NotificationControllerTest do
   use YnabitWeb.ConnCase
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   alias Ynabit.Sources
+  alias Ynabit.Accounts
   # alias Ynabit.Sources.Notification
 
   @notification %{
@@ -17,6 +19,13 @@ defmodule YnabitWeb.NotificationControllerTest do
   }
 
   setup %{conn: conn} do
+    Accounts.create_account(%{
+      account_id: "1d1d0041-b3ea-46d9-a148-ce2b9d3f22a2",
+      api_token: "be491e15565bbd4340cab569ec1aa7509ba7d3f57cd42e7a66e20f0dd49372a0",
+      budget_id: "bf9a36ca-f77c-44a2-959f-c942a78f2c74",
+      slug: "someuser"
+    })
+
     {:ok,
      conn:
        conn
@@ -26,15 +35,19 @@ defmodule YnabitWeb.NotificationControllerTest do
 
   describe "parse notification" do
     test "returns 204 regardless of the result", %{conn: conn} do
-      conn = post(conn, Routes.notification_path(conn, :parse), @notification)
+      use_cassette "new_transaction" do
+        conn = post(conn, Routes.notification_path(conn, :parse), @notification)
 
-      assert response(conn, 204)
+        assert response(conn, 204)
+      end
     end
 
     test "creates a new notification", %{conn: conn} do
-      post(conn, Routes.notification_path(conn, :parse), @notification)
+      use_cassette "new_transaction" do
+        post(conn, Routes.notification_path(conn, :parse), @notification)
 
-      assert length(Sources.list_notifications()) == 1
+        assert length(Sources.list_notifications()) == 1
+      end
     end
   end
 end

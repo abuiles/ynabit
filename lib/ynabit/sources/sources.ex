@@ -7,6 +7,7 @@ defmodule Ynabit.Sources do
   alias Ynabit.Repo
 
   alias Ynabit.Sources.Notification
+  alias Ynabit.Accounts
 
   @doc """
   Returns the list of notifications.
@@ -104,21 +105,26 @@ defmodule Ynabit.Sources do
   Post a new transaction to YNAB
   """
   def post_notification_to_ynab(%Notification{} = notification) do
-    budget_id = Application.get_env(:ynabit, :ynab_budget_id)
-    account_id = Application.get_env(:ynabit, :ynab_account_id)
-    url = "https://api.youneedabudget.com/v1/budgets/#{budget_id}/transactions"
+    with slug when not is_nil(slug) <- get_in(notification.raw, ["bcc", "token"]),
+         account when not is_nil(account) <- Accounts.get_account_by_slug(slug) do
+      budget_id = account.budget_id
+      account_id = account.account_id
+      url = "https://api.youneedabudget.com/v1/budgets/#{budget_id}/transactions"
 
-    transaction =
-      notification.payload |> normalize_payload |> Map.merge(%{account_id: account_id})
+      transaction =
+        notification.payload |> normalize_payload |> Map.merge(%{account_id: account_id})
 
-    payload = %{transaction: transaction} |> Jason.encode!()
+      payload = %{transaction: transaction} |> Jason.encode!()
 
-    HTTPoison.start()
+      HTTPoison.start()
 
-    HTTPoison.post(url, payload, [
-      {"Content-Type", "application/json"},
-      {"Authorization", "Bearer #{Application.get_env(:ynabit, :ynab_api_token)}"}
-    ])
+      HTTPoison.post(url, payload, [
+        {"Content-Type", "application/json"},
+        {"Authorization", "Bearer " <> account.api_token}
+      ])
+    else
+      _ -> raise "Unknown notification" <> notification.id
+    end
   end
 
   @doc """
