@@ -108,7 +108,9 @@ defmodule Ynabit.Sources do
     account_id = Application.get_env(:ynabit, :ynab_account_id)
     url = "https://api.youneedabudget.com/v1/budgets/#{budget_id}/transactions"
 
-    transaction = notification.payload |> normalize_payload |> Map.merge(%{account_id: account_id})
+    transaction =
+      notification.payload |> normalize_payload |> Map.merge(%{account_id: account_id})
+
     payload = %{transaction: transaction} |> Jason.encode!()
 
     HTTPoison.start()
