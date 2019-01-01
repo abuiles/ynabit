@@ -1,0 +1,36 @@
+[
+  {
+    "request": {
+      "body": "{\"transaction\":{\"account_id\":\"1d1d0041-b3ea-46d9-a148-ce2b9d3f22a2\",\"amount\":-7409000,\"approved\":true,\"cleared\":\"cleared\",\"date\":\"2018-11-28\",\"import_id\":\"F6E2DE772440935C7AA43863ABB10C58\",\"memo\":\"UBER   *TRIP-WL2SO\",\"payee_name\":\"UBER\"}}",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer be491e15565bbd4340cab569ec1aa7509ba7d3f57cd42e7a66e20f0dd49372a0"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.youneedabudget.com/v1/budgets/bf9a36ca-f77c-44a2-959f-c942a78f2c74/transactions"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"data\":{\"transaction_ids\":[\"af74625a-9015-40a1-9872-5caa59b46b8b\"],\"transaction\":{\"id\":\"af74625a-9015-40a1-9872-5caa59b46b8b\",\"date\":\"2018-11-28\",\"amount\":-7409000,\"memo\":\"UBER   *TRIP-WL2SO\",\"cleared\":\"cleared\",\"approved\":true,\"flag_color\":null,\"account_id\":\"1d1d0041-b3ea-46d9-a148-ce2b9d3f22a2\",\"account_name\":\"test2\",\"payee_id\":\"e5ee9f32-4c48-4e84-85e2-171955aa6b86\",\"payee_name\":\"UBER\",\"category_id\":null,\"category_name\":null,\"transfer_account_id\":null,\"transfer_transaction_id\":null,\"import_id\":\"F6E2DE772440935C7AA43863ABB10C58\",\"deleted\":false,\"subtransactions\":[]}}}",
+      "headers": {
+        "Server": "Cowboy",
+        "Date": "Tue, 01 Jan 2019 19:17:14 GMT",
+        "Connection": "keep-alive",
+        "Content-Type": "application/json; charset=utf-8",
+        "X-Rate-Limit": "4/200",
+        "Vary": "Accept-Encoding, Origin",
+        "Etag": "W/\"95bb9d7a756b71e5f1093b6f89ac4b00\"",
+        "Cache-Control": "max-age=0, private, must-revalidate",
+        "X-Request-Id": "5ca91573-2fd6-414b-b6c3-2f0d23ec2f9d",
+        "X-Runtime": "0.150771",
+        "Strict-Transport-Security": "max-age=15552000; includeSubDomains",
+        "Transfer-Encoding": "chunked",
+        "Via": "1.1 vegur"
+      },
+      "status_code": 201,
+      "type": "ok"
+    }
+  }
+]
