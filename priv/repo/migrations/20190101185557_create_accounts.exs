@@ -10,6 +10,5 @@ defmodule Ynabit.Repo.Migrations.CreateAccounts do
 
       timestamps()
     end
-
   end
 end

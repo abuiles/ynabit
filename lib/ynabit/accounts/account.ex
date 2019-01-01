@@ -2,7 +2,6 @@ defmodule Ynabit.Accounts.Account do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "accounts" do
     field :account_id, :string
     field :api_token, :string
