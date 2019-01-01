@@ -4,6 +4,8 @@ defmodule Ynabit.SourcesTest do
 
   alias Ynabit.Sources
   alias Ynabit.Sources.Notification
+  alias Ynabit.Accounts
+  alias Ynabit.Accounts.Account
 
   @email %{
     "bcc" => %{
@@ -118,10 +120,41 @@ defmodule Ynabit.SourcesTest do
 
   describe "#post_notification_to_ynab" do
     test "post transaction to YNAB" do
+      {:ok, %Account{} = account} =
+        Accounts.create_account(%{
+          account_id: "1d1d0041-b3ea-46d9-a148-ce2b9d3f22a2",
+          api_token: "be491e15565bbd4340cab569ec1aa7509ba7d3f57cd42e7a66e20f0dd49372a0",
+          budget_id: "bf9a36ca-f77c-44a2-959f-c942a78f2c74",
+          slug: "someuser"
+        })
+
       {:ok, notification} = Sources.parse_notification(@email)
 
       use_cassette "new_transaction" do
         assert {:ok, response} = Sources.post_notification_to_ynab(notification)
+
+        assert Jason.decode(response.request.body) ==
+                 {:ok,
+                  %{
+                    "transaction" => %{
+                      "account_id" => account.account_id,
+                      "amount" => -7_409_000,
+                      "approved" => true,
+                      "cleared" => "cleared",
+                      "date" => "2018-11-28",
+                      "import_id" => "F6E2DE772440935C7AA43863ABB10C58",
+                      "memo" => "UBER   *TRIP-WL2SO",
+                      "payee_name" => "UBER"
+                    }
+                  }}
+
+        assert Enum.into(response.request.headers, %{})["Authorization"] ==
+                 "Bearer " <> account.api_token
+
+        assert response.request_url ==
+                 "https://api.youneedabudget.com/v1/budgets/" <>
+                   account.budget_id <> "/transactions"
+
         assert response.status_code == 201
       end
     end
