@@ -33,7 +33,7 @@ defmodule Ynabit.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:banknot_to_ynab, "~> 0.4.0"},
+      {:banknot_to_ynab, "~> 0.5.0"},
       {:bugsnag, "~> 1.7.0"},
       {:ecto_sql, "~> 3.0"},
       {:exvcr, "~> 0.10", only: :test},
