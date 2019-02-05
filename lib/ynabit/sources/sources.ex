@@ -60,11 +60,16 @@ defmodule Ynabit.Sources do
   Takes a notification email and creates a notification.
   """
   def parse_notification(message \\ %{}) do
-    payload = BanknotToYnab.parse(message["text"])
-
-    %Notification{}
-    |> Notification.changeset(%{raw: message, payload: payload, processed: true})
-    |> Repo.insert()
+    case BanknotToYnab.parse(message["text"]) do
+      {:ok, payload} ->
+        %Notification{}
+        |> Notification.changeset(%{raw: message, payload: payload, processed: true})
+        |> Repo.insert()
+      _ ->
+        %Notification{}
+        |> Notification.changeset(%{raw: message, payload: %{}, processed: false})
+        |> Repo.insert()
+    end
   end
 
   @doc """
