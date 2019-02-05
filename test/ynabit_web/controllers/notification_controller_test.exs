@@ -2,9 +2,11 @@ defmodule YnabitWeb.NotificationControllerTest do
   use YnabitWeb.ConnCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
+  import Mock
+
+  alias Ynabit.Sources.Notification
   alias Ynabit.Sources
   alias Ynabit.Accounts
-  # alias Ynabit.Sources.Notification
 
   @notification %{
     "text" =>
@@ -39,6 +41,29 @@ defmodule YnabitWeb.NotificationControllerTest do
         conn = post(conn, Routes.notification_path(conn, :parse), @notification)
 
         assert response(conn, 204)
+      end
+    end
+
+    test "with bad payload", %{conn: conn} do
+      payload = %{
+        "text" => "oh hai",
+        "bcc" => %{
+          "email" => "someuser@ynabit.com",
+          "full" => "someuser@ynabit.com",
+          "host" => "ynabit.com",
+          "name" => nil,
+          "token" => "someuser"
+        }
+      }
+
+      with_mock Sources, [:passthrough], [] do
+        conn = post(conn, Routes.notification_path(conn, :parse), payload)
+
+        assert response(conn, 204)
+
+        assert %Notification{} = notification = hd(Sources.list_notifications())
+
+        refute called(Sources.post_notification_to_ynab(notification))
       end
     end
 

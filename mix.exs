@@ -35,18 +35,19 @@ defmodule Ynabit.MixProject do
     [
       {:banknot_to_ynab, "~> 0.4.0"},
       {:bugsnag, "~> 1.7.0"},
-      {:exvcr, "~> 0.10", only: :test},
-      {:httpoison, "~> 1.4"},
-      {:phoenix, "~> 1.4.0"},
-      {:phoenix_pubsub, "~> 1.1"},
-      {:phoenix_ecto, "~> 4.0"},
       {:ecto_sql, "~> 3.0"},
-      {:postgrex, ">= 0.0.0"},
+      {:exvcr, "~> 0.10", only: :test},
+      {:gettext, "~> 0.11"},
+      {:httpoison, "~> 1.4"},
+      {:jason, "~> 1.0"},
+      {:mock, "~> 0.3.0", only: :test},
+      {:phoenix, "~> 1.4.0"},
+      {:phoenix_ecto, "~> 4.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:phoenix_pubsub, "~> 1.1"},
+      {:plug_cowboy, "~> 2.0"},
+      {:postgrex, ">= 0.0.0"}
     ]
   end
 
