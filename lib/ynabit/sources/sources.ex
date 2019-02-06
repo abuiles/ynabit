@@ -160,7 +160,7 @@ defmodule Ynabit.Sources do
     else
       _ -> payload
     end
-    |> Map.merge(%{amount: payload[:amount] * 1000})
+    |> Map.merge(%{amount: trunc(payload[:amount] * 1000)})
   end
 
   def find_payee(name) do
