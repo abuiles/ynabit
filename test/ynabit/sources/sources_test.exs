@@ -115,6 +115,7 @@ defmodule Ynabit.SourcesTest do
       assert Sources.find_payee("FIRE HOUSE MILLA DE OR ") == {:ok, "FIRE HOUSE"}
       assert Sources.find_payee("Spotify P0adfadf") == {:ok, "Spotify"}
       assert Sources.find_payee("HEROKU *NOV-22222") == {:ok, "Heroku"}
+      assert Sources.find_payee("AMZN Mktp US zn com bill W A") == {:ok, "Amazon"}
     end
   end
 
