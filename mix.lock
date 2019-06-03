@@ -1,5 +1,5 @@
 %{
-  "banknot_to_ynab": {:hex, :banknot_to_ynab, "0.8.0", "d6defb87514264a899421ec8a72e3255db53de6342314603ac8b71816dd288b3", [:mix], [{:timex, "~> 3.1", [hex: :timex, repo: "hexpm", optional: false]}], "hexpm"},
+  "banknot_to_ynab": {:hex, :banknot_to_ynab, "0.9.0", "f2969a5eb900307b02b4ce7dc6228284c95985e9b68fc7388b78d863119c7b40", [:mix], [{:timex, "~> 3.1", [hex: :timex, repo: "hexpm", optional: false]}], "hexpm"},
   "bugsnag": {:hex, :bugsnag, "1.7.0", "447d260f9a90cfd2a4d2d39211a76d3949584d8f4014e1488592027f2bbbbf09", [:mix], [{:httpoison, "~> 0.13 or ~> 1.0", [hex: :httpoison, repo: "hexpm", optional: false]}, {:poison, "~> 1.5 or ~> 2.0 or ~> 3.0", [hex: :poison, repo: "hexpm", optional: false]}], "hexpm"},
   "certifi": {:hex, :certifi, "2.5.1", "867ce347f7c7d78563450a18a6a28a8090331e77fa02380b4a21962a65d36ee5", [:rebar3], [{:parse_trans, "~>3.3", [hex: :parse_trans, repo: "hexpm", optional: false]}], "hexpm"},
   "combine": {:hex, :combine, "0.10.0", "eff8224eeb56498a2af13011d142c5e7997a80c8f5b97c499f84c841032e429f", [:mix], [], "hexpm"},
