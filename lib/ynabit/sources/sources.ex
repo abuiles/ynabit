@@ -169,11 +169,16 @@ defmodule Ynabit.Sources do
       {~r/CREPES Y WAFFLES/, "CREPES Y WAFFLES"},
       {~r/PIZZERIA OLIVIA/, "PIZZERIA OLIVIA"},
       {~r/NETFLIX/, "NETFLIX"},
-      {~r/CARULLA/, "CARULLA"},
+      {~r/Carulla/, "Carulla"},
       {~r/FIRE HOUSE/, "FIRE HOUSE"},
       {~r/Spotify/, "Spotify"},
       {~r/HEROKU/, "Heroku"},
-      {~r/AMZN/, "Amazon"}
+      {~r/AMZN/, "Amazon"},
+      {~r/EURO/, "Euro Supermercado"},
+      {~r/Airbnb/, "Airbnb"},
+      {~r/Lolita/, "De Lolita"},
+      {~r/Apple/, "Apple"},
+      {~r/ALIMENT LAS0/, "Las Tres"}
     ]
 
     with {_, payee} <- Enum.find(regex, fn {r, _} -> Regex.match?(r, name) end) do
