@@ -176,7 +176,7 @@ defmodule Ynabit.Sources do
       {~r/AMZN/, "Amazon"},
       {~r/EURO/, "Euro Supermercado"},
       {~r/Airbnb/, "Airbnb"},
-      {~r/Lolita/, "De Lololita"},
+      {~r/Lolita/, "De Lolita"},
       {~r/Apple/, "Apple"},
       {~r/ALIMENT LAS0/, "Las Tres"}
     ]
