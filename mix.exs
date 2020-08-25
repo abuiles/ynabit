@@ -34,7 +34,7 @@ defmodule Ynabit.MixProject do
   defp deps do
     [
       {:banknot_to_ynab, "~> 0.8.0"},
-      {:bugsnag, "~> 1.7.0"},
+      {:bugsnag, "~> 2.1.1"},
       {:ecto_sql, "~> 3.0"},
       {:exvcr, "~> 0.10", only: :test},
       {:gettext, "~> 0.11"},
